@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
+import './styles/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

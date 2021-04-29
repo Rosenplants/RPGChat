@@ -1,10 +1,14 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
+import { connect } from 'react-redux';
+import Chat from './components';
 
-export default function App() {
-  return (
-    <>
-      <div>Hello, world!</div>
-    </>
-  );
+function App(props) {
+  const isLoggedIn = props;
+  return <>{isLoggedIn ? <Chat /> : <div>Hello, world!</div>}</>;
 }
+
+const mapState = (state) => ({
+  isLoggedIn: !!state.auth.id,
+});
+
+export default connect(mapState)(App);

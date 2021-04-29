@@ -1,0 +1,49 @@
+/* Universal Styles */
+* {
+  box-sizing: border-box;
+}
+
+body,
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Chat Container Styles */
+#chat {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: stretch;
+}
+
+/* Navbar Styles */
+nav {
+  background-color: hotpink;
+  flex: 1 0 15%;
+}
+
+/* Main Chat Body Styles */
+main {
+  background-color: blue;
+  flex: 1 1 100%;
+}
+
+/* Tabs Styles */
+#tabs {
+  background-color: chartreuse;
+  flex: 0 0 60px;
+}
+
+/* Tab Container Styles */
+#tab-container:not(.open) {
+  background-color: coral;
+  width: 0;
+}
+
+#tab-container.open {
+  background-color: coral;
+  flex: 0 0 15%;
+  /* transition: 1s; */
+}
