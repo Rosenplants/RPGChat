@@ -16,12 +16,13 @@ app.use(express.json());
 
 // API routers
 app.use('/api', require('./api'));
+app.use('/auth', require('./auth'));
 
 // serve up static assets
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public'));
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 });
 
 app.use((err, req, res, _next) => {

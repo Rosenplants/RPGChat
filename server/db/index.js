@@ -32,5 +32,6 @@ module.exports = {
     Group,
     Thread,
     Message,
+    Scene,
   },
 };
