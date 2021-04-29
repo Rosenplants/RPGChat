@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk';
 import auth from './auth';
 import threads from './threads';
 import tabOpen from './tabOpen';
+import tabs from './tabs';
 
-const reducer = combineReducers({ auth, threads, tabOpen });
+const reducer = combineReducers({ auth, threads, tabOpen, tabs });
 
 // Creating Our Store
 const store = createStore(

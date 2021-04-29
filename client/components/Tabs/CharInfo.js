@@ -4,7 +4,7 @@ export default class CharInfo extends Component {
   render() {
     return (
       <div id="CharInfo">
-        <p>We did it.</p>
+        <p>We are in Character info.</p>
       </div>
     );
   }

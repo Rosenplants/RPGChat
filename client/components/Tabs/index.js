@@ -11,11 +11,19 @@ class TabList extends Component {
   };
 
   render() {
+    const { tabs } = this.props;
     return (
       <aside id="tabs">
-        <button type="button" value="CharInfo" onClick={this.handleClick}>
-          Test
-        </button>
+        {tabs.map((tab, idx) => (
+          <button
+            key={idx}
+            type="button"
+            value={tab.name}
+            onClick={this.handleClick}
+          >
+            {tab.name}
+          </button>
+        ))}
       </aside>
     );
   }
@@ -23,6 +31,7 @@ class TabList extends Component {
 
 const mapState = (state) => ({
   tabOpen: state.tabOpen,
+  tabs: state.tabs,
 });
 
 const mapDispatch = (dispatch) => ({
