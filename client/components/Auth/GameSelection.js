@@ -14,7 +14,7 @@ class GameSelection extends Component {
       <div>
         <h3>Which Room Would You Like To Enter?</h3>
         {games.length ? '' : `You haven't joined any games yet`}
-        <button type="button" onClick={() => history.push('/chat')}>
+        <button type="button" onClick={() => history.push('/game')}>
           Start a new game?
         </button>
       </div>
