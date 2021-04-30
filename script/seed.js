@@ -1,6 +1,6 @@
 const {
   db,
-  models: { User, Group, Thread, Message, Scene },
+  models: { User, Group, Thread, Message, Scene, Character },
 } = require('../server/db');
 
 async function createUsers() {
@@ -11,24 +11,36 @@ async function createUsers() {
       password: '123',
       isAdmin: true,
     }),
+    User.create({
+      email: 'eustace@gmail.com',
+      username: 'Eustalot',
+      password: '123',
+    }),
   ]);
 }
 
-function createGroups() {}
+async function createGroups() {
+  const groups = await Promise.all([
+    Group.create({ name: 'Test1' }),
+    Group.create({ name: 'Test2' }),
+  ]);
+  return groups;
+}
 
-function createThreads() {}
+async function createThreads() {}
 
-function createMessages() {}
+async function createMessages() {}
 
-function createScenes() {}
+async function createScenes() {}
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
 
   const users = await createUsers();
+  const groups = await createGroups();
 
-  return { users };
+  return { users, groups };
 }
 
 async function runSeed() {

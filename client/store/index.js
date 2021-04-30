@@ -6,8 +6,9 @@ import auth from './auth';
 import threads from './threads';
 import tabOpen from './tabOpen';
 import tabs from './tabs';
+import games from './games';
 
-const reducer = combineReducers({ auth, threads, tabOpen, tabs });
+const reducer = combineReducers({ auth, threads, tabOpen, tabs, games });
 
 // Creating Our Store
 const store = createStore(

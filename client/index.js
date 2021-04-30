@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
+import 'regenerator-runtime/runtime';
 import './styles/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -7,6 +7,7 @@ const Thread = db.define('thread', {
   },
   type: {
     type: ENUM(['group', 'private']),
+    defaultValue: 'private',
   },
 });
 

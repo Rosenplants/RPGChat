@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 const { STRING, BOOLEAN } = require('sequelize');
 const bcrypt = require('bcrypt');
@@ -26,14 +27,17 @@ const User = db.define('user', {
 module.exports = User;
 
 // Check if the password is right
-User.prototype.correctPassword = (enteredPassword) =>
-  bcrypt.compare(enteredPassword, this.password);
+User.prototype.correctPassword = function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
+};
 
 // Create a token for them
-User.prototype.generateToken = () => jwt.sign({ id: this.id }, process.env.JWT);
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT);
+};
 
 // authenticate email and password
-User.authenticate = async ({ email, password }) => {
+User.authenticate = async function ({ email, password }) {
   const user = await this.findOne({ where: { email } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('Incorrect email/password');

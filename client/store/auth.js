@@ -1,3 +1,5 @@
+import history from '../history';
+
 /* eslint-disable no-console */
 const TOKEN = 'token';
 
@@ -6,6 +8,8 @@ const SET_AUTH = 'SET_AUTH';
 
 // Action Creators
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
+
+const setLogOut = () => ({ type: SET_AUTH, auth: {} });
 
 // Thunk Creators
 export const getUser = () => {
@@ -19,6 +23,7 @@ export const getUser = () => {
           },
         });
         dispatch(setAuth(user));
+        history.push('/');
       }
     } catch (error) {
       console.error(error);
@@ -31,37 +36,47 @@ export const logIn = (email, password) => {
     try {
       const {
         data: { token },
-      } = axios.post('/auth/login', { email, password });
+      } = await axios.post('/auth/login', { email, password });
       window.localStorage.setItem(TOKEN, token);
       dispatch(getUser());
     } catch (error) {
-      return dispatch(setAuth({ error }));
+      dispatch(setAuth({ error }));
     }
   };
 };
 
-export const signUp = (email, password, username) => {
+export const signUp = (userInfo) => {
   return async (dispatch, getState, { axios }) => {
     try {
       const {
         data: { token },
-      } = axios.post('/auth/signup', { email, password, username });
+      } = await axios.post('/auth/signup', userInfo);
       window.localStorage.setItem(TOKEN, token);
       dispatch(getUser());
     } catch (error) {
-      return dispatch(setAuth({ error }));
+      dispatch(setAuth({ error }));
+    }
+  };
+};
+
+export const logUserOut = () => {
+  return async (dispatch, getState, { axios }) => {
+    try {
+      window.localStorage.removeItem(TOKEN);
+      // const {data: session} = await axios.get('/auth/guest');
+      dispatch(setLogOut());
+      history.push('/login');
+    } catch (error) {
+      console.error(error);
     }
   };
 };
 
 // Reducer
-const testState = {
-  id: 1,
-  email: 'test@test.com',
-  name: 'Testy McTestFace',
-};
 export default (state = {}, action) => {
   switch (action.type) {
+    case SET_AUTH:
+      return action.auth;
     default:
       return state;
   }

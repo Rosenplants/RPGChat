@@ -1,11 +1,16 @@
 import React from 'react';
+import Login from './Login';
+import Signup from './Signup';
 
 export default function AuthContainer(props) {
-  console.log(props.location.pathname);
+  const {
+    location: { pathname },
+  } = props;
   return (
     <div id="auth-form">
+      <h1>Welcome to RPG Chat!</h1>
       <div className="form-bubble">
-        <h4>Woo</h4>
+        {pathname === '/signup' ? <Signup /> : <Login />}
       </div>
     </div>
   );
