@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Chat from './components';
 import AuthContainer from './components/Auth/AuthContainer';
 import GameSelection from './components/Auth/GameSelection';
+import history from './history';
 import { getUser } from './store/auth';
 
 class App extends React.Component {
@@ -14,14 +15,14 @@ class App extends React.Component {
 
   render() {
     const { isLoggedIn } = this.props;
-
     return (
       <>
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={GameSelection} />
-            <Route path="/game" component={Chat} />
-            <Redirect to="/" />
+            <Route path="/game/:gameId/:threadId" component={Chat} />
+            <Route path="/game/:gameId" component={Chat} />
+            <Route path="*" component={GameSelection} />
           </Switch>
         ) : (
           <Switch>

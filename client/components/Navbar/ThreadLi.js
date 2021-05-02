@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function ThreadLi({ thread }) {
+export default function ThreadLi({ thread, threadURL }) {
   return (
-    <div id={thread.name}>
-      <span className="thread-title">{thread.name}</span>
+    <div className={`${thread.name}`}>
+      <Link to={threadURL} className="thread-title">
+        {thread.name}
+      </Link>
     </div>
   );
 }

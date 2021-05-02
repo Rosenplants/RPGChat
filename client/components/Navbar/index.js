@@ -10,14 +10,18 @@ class Navbar extends Component {
   };
 
   render() {
-    const { threads } = this.props;
+    const { threads, gameId } = this.props;
     return (
       <nav role="navigation">
         <a href="#" onClick={this.handleLogOut}>
           Logout
         </a>
         {threads.map((thread) => (
-          <ThreadLi thread={thread} key={thread.id} />
+          <ThreadLi
+            thread={thread}
+            threadURL={`/game/${gameId}/${thread.id}`}
+            key={thread.id}
+          />
         ))}
       </nav>
     );

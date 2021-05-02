@@ -5,8 +5,6 @@ import { setTab } from '../../store/tabOpen';
 class TabList extends Component {
   handleClick = (evt) => {
     const { tabOpen, setTab } = this.props;
-    console.log(tabOpen);
-    console.log(evt.target.value);
     tabOpen === evt.target.value ? setTab('') : setTab(evt.target.value);
   };
 

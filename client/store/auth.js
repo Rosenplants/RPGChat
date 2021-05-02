@@ -1,4 +1,5 @@
 import history from '../history';
+import socket from '../socket';
 
 /* eslint-disable no-console */
 const TOKEN = 'token';

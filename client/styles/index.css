@@ -70,10 +70,21 @@ main {
 #messages-container {
   flex: 1 1 100%;
   background-color: crimson;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: scroll;
 }
 
 #chatbox {
   flex: 0 0 100px;
+}
+
+.message.sent {
+  background-color: darkgoldenrod;
+}
+
+.message.received {
+  background-color: darkgray;
 }
 
 /* Tabs Styles */

@@ -7,6 +7,7 @@ const Message = db.define('message', {
   },
   status: {
     type: ENUM(['sent', 'draft']),
+    defaultValue: 'sent',
   },
 });
 

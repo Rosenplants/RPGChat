@@ -16,6 +16,11 @@ async function createUsers() {
       username: 'Eustalot',
       password: '123',
     }),
+    User.create({
+      email: 'test@test.com',
+      username: 'testyMcTestFace',
+      password: '123',
+    }),
   ]);
 }
 
@@ -39,6 +44,10 @@ async function seed() {
 
   const users = await createUsers();
   const groups = await createGroups();
+
+  await users[0].setGroups(groups);
+  await users[1].setGroups(groups);
+  await users[2].addGroup(groups[0]);
 
   return { users, groups };
 }

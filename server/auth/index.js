@@ -4,7 +4,6 @@ const User = require('../db/models/user');
 
 router.post('/login', async (req, res, next) => {
   try {
-    console.log(req.body);
     res.send({ token: await User.authenticate(req.body) });
   } catch (error) {
     next(error);
