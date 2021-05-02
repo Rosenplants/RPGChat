@@ -1,5 +1,6 @@
 import { gotThreads } from './threads';
 import { gotCharacter } from './character';
+import history from '../history';
 
 // Action Types
 const GOT_GAMES = 'GOT_GAMES';
@@ -32,6 +33,29 @@ export const setFullGroup = (userId, groupId) => {
       ]);
       dispatch(gotThreads(res1.data));
       dispatch(gotCharacter(res2.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const createGame = (userId, name) => {
+  return async (dispatch, getState, { axios }) => {
+    try {
+      const { data: game } = await axios.post('/api/games', { name, userId });
+      history.push(`/game/${game.id}/invite`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const assocUser = (identObj, gameId) => {
+  return async (dispatch, getState, { axios }) => {
+    try {
+      const res = await axios.post(`/api/games/${gameId}/users`, identObj);
+
+      if (res.status !== 201) throw new Error('oops');
     } catch (error) {
       console.error(error);
     }

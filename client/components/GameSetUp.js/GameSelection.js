@@ -11,7 +11,7 @@ class GameSelection extends Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { games, id } = this.props;
     return (
       <div>
         <h3>Which Room Would You Like To Enter?</h3>
@@ -26,7 +26,7 @@ class GameSelection extends Component {
         ) : (
           `You haven't joined any games yet`
         )}
-        <button type="button" onClick={() => history.push('/game')}>
+        <button type="button" onClick={() => history.push('/game/new')}>
           Start a new game?
         </button>
       </div>

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Chat from './components';
 import AuthContainer from './components/Auth/AuthContainer';
-import GameSelection from './components/Auth/GameSelection';
+import GameSelection from './components/GameSetUp.js/GameSelection';
+import CreateGame from './components/GameSetUp.js/CreateGame';
 import history from './history';
 import { getUser } from './store/auth';
 
@@ -20,6 +21,8 @@ class App extends React.Component {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={GameSelection} />
+            <Route path="/game/new" component={CreateGame} />
+            <Route path="/game/:gameId/invite" component={CreateGame} />
             <Route path="/game/:gameId/:threadId" component={Chat} />
             <Route path="/game/:gameId" component={Chat} />
             <Route path="*" component={GameSelection} />
