@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sentMessage } from '../../store/messages';
+import { sentMessage, sentRoll } from '../../store/messages';
 
 class ChatBox extends Component {
   constructor(props) {
@@ -18,9 +18,13 @@ class ChatBox extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { sendMessage, user, threadId } = this.props;
-    console.log(threadId);
-    sendMessage(user.id, threadId, evt.target.content.value);
+    if (evt.target.content.value.includes('!roll:')) {
+      const { sendRoll, user, threadId } = this.props;
+      sendRoll(user.id, threadId, evt.target.content.value);
+    } else {
+      const { sendMessage, user, threadId } = this.props;
+      sendMessage(user.id, threadId, evt.target.content.value);
+    }
     this.setState({
       content: '',
     });
@@ -30,7 +34,7 @@ class ChatBox extends Component {
     const { threadId } = this.props;
     return (
       <div id="chatbox">
-        <form onSubmit={this.handleSubmit}>
+        <form id="user-msg-input" onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="content"
@@ -56,6 +60,8 @@ const mapDispatch = (dispatch) => ({
   sendMessage: (userId, threadId, content) => {
     dispatch(sentMessage(userId, threadId, content));
   },
+  sendRoll: (userId, threadId, message) =>
+    dispatch(sentRoll(userId, threadId, message)),
 });
 
 export default connect(mapState, mapDispatch)(ChatBox);

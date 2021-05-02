@@ -24,13 +24,6 @@ class Chat extends React.Component {
     });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { threads } = this.props;
-  //   if (prevProps.threads !== threads) {
-  //     socket.join(threads.map((thread) => `room ${thread.id}`));
-  //   }
-  // }
-
   componentWillUnmount() {
     // is this the right place? we'll find out!
     socket.off('connect_error');

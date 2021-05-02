@@ -2,8 +2,7 @@ import socket from '../socket';
 
 // Action Type
 const GOT_MESSAGES = 'GOT_MESSAGES';
-const NEW_MESSAGE = 'SENT_MESSAGE';
-// const RECEIVED_MESSAGE = 'RECEIVED_MESSAGE';
+const NEW_MESSAGE = 'NEW_MESSAGE';
 
 // Action Creator
 const gotMessages = (messages) => ({
@@ -15,11 +14,6 @@ export const newMessage = (message) => ({
   type: NEW_MESSAGE,
   message,
 });
-
-// const receivedMessage = (message) => ({
-//   type: RECEIVED_MESSAGE,
-//   message,
-// });
 
 // Thunk Creator
 export const fetchMessages = (threadId) => {
@@ -46,7 +40,26 @@ export const sentMessage = (userId, threadId, content) => {
         }
       );
       socket.emit('send message', {
-        content,
+        message,
+        to: `room ${threadId}`,
+      });
+      dispatch(newMessage(message));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const sentRoll = (userId, threadId, content) => {
+  return async (dispatch, getState, { axios }) => {
+    try {
+      const [_cmd, rolls] = content.split(':');
+      const { data: message } = await axios.post(`/api/users/${userId}/rolls`, {
+        threadId,
+        rolls,
+      });
+      socket.emit('send roll', {
+        message,
         to: `room ${threadId}`,
       });
       dispatch(newMessage(message));

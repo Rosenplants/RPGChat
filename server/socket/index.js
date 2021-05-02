@@ -10,25 +10,26 @@ module.exports = (io) => {
   });
 
   io.on('connection', (socket) => {
-    socket.on('send message', ({ content, to }) => {
-      console.log('sending message to: ', to);
+    socket.on('send message', ({ message, to }) => {
       socket.to(to).emit('receive message', {
-        content,
-        from: { username: socket.username, userid: socket.userid },
+        message,
+        from: message.user,
+      });
+    });
+
+    socket.on('send roll', ({ message, to }) => {
+      socket.to(to).emit('receive roll', {
+        message,
+        from: message.user,
       });
     });
 
     socket.on('joinRoom', ({ room }) => {
       socket.join(room);
-      console.log(`I have joined ${room}`);
-      console.log(socket.rooms);
     });
 
     socket.on('leaveRoom', ({ room }) => {
       socket.leave(room);
-      socket.removeAllListeners(room);
-      console.log(`I have left ${room}`);
-      console.log(socket.rooms);
     });
   });
 };

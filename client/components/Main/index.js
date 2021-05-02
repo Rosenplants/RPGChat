@@ -10,9 +10,13 @@ import socket from '../../socket';
 class Main extends Component {
   componentDidMount() {
     const { recMessage } = this.props;
-    socket.on('receive message', ({ content, from }) => {
-      recMessage({ content, username: from.username, userId: from.userid });
+    socket.on('receive message', ({ message, from }) => {
+      recMessage(message);
     });
+    socket.on('receive roll', ({ message, from }) => {
+      recMessage(message);
+    });
+    socket.on('');
   }
 
   componentDidUpdate(prevProps) {

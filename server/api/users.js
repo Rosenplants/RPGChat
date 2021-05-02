@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { Group, User, Character, Message },
+  models: { Group, User, Character, Message, Roll, Scene },
 } = require('../db');
 
 module.exports = router;
@@ -35,10 +35,49 @@ router.post('/:id/messages', async (req, res, next) => {
   try {
     const { threadId, content } = req.body;
     const message = await Message.create({ content });
-    message.setUser(req.params.id);
-    console.log(typeof threadID);
-    message.setThread(threadId);
-    res.json(message);
+    await message.setUser(req.params.id);
+    await message.setThread(threadId);
+    res.json(
+      await Message.findOne({
+        where: {
+          id: message.id,
+        },
+        include: [
+          {
+            model: User,
+          },
+          { model: Scene, as: 'scene' },
+          { model: Roll, as: 'roll' },
+        ],
+      })
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/:id/rolls', async (req, res, next) => {
+  try {
+    const { threadId, rolls } = req.body;
+    const roll = await Roll.create({ userInput: rolls });
+    const message = await Message.create();
+    await message.setRoll(roll);
+    await message.setThread(threadId);
+    await message.setUser(req.params.id);
+    res.json(
+      await Message.findOne({
+        where: {
+          id: message.id,
+        },
+        include: [
+          {
+            model: User,
+          },
+          { model: Scene, as: 'scene' },
+          { model: Roll, as: 'roll' },
+        ],
+      })
+    );
   } catch (error) {
     next(error);
   }

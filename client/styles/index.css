@@ -10,6 +10,10 @@ body,
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 /* Authentication Pages */
 #auth-form {
   width: 100%;
@@ -53,14 +57,13 @@ body,
 
 /* Navbar Styles */
 nav {
-  background-color: hotpink;
+  background-image: linear-gradient(to left, white, #e1dabd);
   flex: 1 0 15%;
-  padding: 3rem;
+  /* padding: 3rem; */
 }
 
 /* Main Chat Body Styles */
 main {
-  background-color: blue;
   flex: 1 1 100%;
   display: flex;
   flex-direction: column;
@@ -69,38 +72,70 @@ main {
 
 #messages-container {
   flex: 1 1 100%;
-  background-color: crimson;
   display: flex;
   flex-direction: column-reverse;
   overflow: scroll;
+  padding-bottom: 1rem;
+  gap: 5px;
 }
 
 #chatbox {
   flex: 0 0 100px;
 }
 
+/* Message Styles */
+.msg-box {
+  padding: 0 0.5rem;
+  max-width: 55%;
+}
+
+.msg-box.sent {
+  align-self: flex-end;
+  justify-content: right;
+  text-align: right;
+}
+
+.msg-box.received {
+  align-self: flex-start;
+  justify-content: left;
+  text-align: left;
+}
+
+.message {
+  padding: 0.25rem 1rem;
+  border-radius: 5px;
+}
+
 .message.sent {
-  background-color: darkgoldenrod;
+  background-color: #ffe4fa;
+  justify-self: right;
 }
 
 .message.received {
-  background-color: darkgray;
+  background-color: #e1dabd;
+  justify-self: left;
+}
+
+/* Roll Styes */
+.roll {
+  background-color: burlywood;
+  text-align: center;
+  padding: 0.25rem 0;
 }
 
 /* Tabs Styles */
 #tabs {
-  background-color: chartreuse;
+  background-image: linear-gradient(to right, #ffe4fa, #ffccf6);
   flex: 0 0 60px;
 }
 
 /* Tab Container Styles */
 #tab-container:not(.open) {
-  background-color: coral;
   width: 0;
 }
 
 #tab-container.open {
-  background-color: coral;
+  background-image: linear-gradient(to right, white, #ffe4fa);
   flex: 0 0 15%;
   /* transition: 1s; */
 }

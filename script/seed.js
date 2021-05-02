@@ -36,7 +36,10 @@ async function createThreads() {}
 
 async function createMessages() {}
 
-async function createScenes() {}
+async function createScenes() {
+  const scenes = await Promise.all([]);
+  return scenes;
+}
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables

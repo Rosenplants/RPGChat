@@ -5,6 +5,7 @@ const Thread = require('./models/thread');
 const Message = require('./models/message');
 const Character = require('./models/character');
 const Scene = require('./models/scene');
+const Roll = require('./models/roll');
 
 // Associations
 User.hasMany(Message);
@@ -18,6 +19,12 @@ Group.belongsToMany(User, { through: Character });
 
 User.hasMany(Scene);
 Scene.belongsTo(User);
+
+Scene.hasMany(Message, { as: 'scene', foreignKey: 'sceneId' });
+Message.belongsTo(Scene);
+
+Roll.hasMany(Message, { as: 'roll', foreignKey: 'rollId' });
+Message.belongsTo(Roll);
 
 Group.hasMany(Thread);
 Thread.belongsTo(Group);
@@ -34,5 +41,6 @@ module.exports = {
     Message,
     Scene,
     Character,
+    Roll,
   },
 };
