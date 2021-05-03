@@ -4,12 +4,12 @@ import CharInfo from './CharInfo';
 import Notes from './Notes';
 import Scenes from './Scenes';
 
-function TabContainer({ tabOpen }) {
+function TabContainer({ tabOpen, threadId }) {
   return (
     <div id="tab-container" className={tabOpen ? 'open' : ''}>
       {tabOpen === 'CharInfo' ? <CharInfo /> : ''}
       {tabOpen === 'Notes' ? <Notes /> : ''}
-      {tabOpen === 'Scenes' ? <Scenes /> : ''}
+      {tabOpen === 'Scenes' ? <Scenes threadId={threadId} /> : ''}
     </div>
   );
 }

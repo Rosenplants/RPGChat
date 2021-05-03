@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message';
 import Roll from './Roll';
+import Scene from './Scene';
 
 function MessageContainer({ messages, userId, username }) {
   if (!messages.length)
@@ -31,6 +32,9 @@ function MessageContainer({ messages, userId, username }) {
               username={message.user ? message.user.username : username}
             />
           );
+        }
+        if (message.scene) {
+          return <Scene key={message.id} scene={message.scene} />;
         }
         return (
           <Message

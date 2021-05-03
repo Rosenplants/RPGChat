@@ -26,8 +26,8 @@ async function createUsers() {
 
 async function createGroups() {
   const groups = await Promise.all([
-    Group.create({ name: 'Test1' }),
-    Group.create({ name: 'Test2' }),
+    Group.create({ name: 'The Buffalo Zone' }),
+    Group.create({ name: 'The Couples Play DnD' }),
   ]);
   return groups;
 }
@@ -37,7 +37,27 @@ async function createThreads() {}
 async function createMessages() {}
 
 async function createScenes() {
-  const scenes = await Promise.all([]);
+  const scenes = await Promise.all([
+    Scene.create({
+      name: 'A Spooky Cave',
+      text:
+        'You come across an eerie opening in the cliff wall. The darkness seems almost impenetrable and there is an unsettling quiet around the cave.',
+      imageURL:
+        'https://media.istockphoto.com/photos/tunnel-picture-id121368045?k=6&m=121368045&s=612x612&w=0&h=LIBNrLa9qBf40uKA6Fihd3UyqrU_o16IzacXsACdXMU=',
+      isDefault: true,
+      audioURL:
+        'https://www.youtube.com/watch?v=kxqJuc1HHbg&ab_channel=TheGuildofAmbience',
+    }),
+    Scene.create({
+      name: 'The Winter Festival',
+      text: `It might be freezing cold, but the town square is packed with people. There's ice skating, shaved ice, ice sculptures, and more ice related celebrations.`,
+      imageURL:
+        'https://korea.stripes.com/sites/default/files/styles/community_site_carousel_750x500/public/article-images/1212_winter_main.jpg?itok=kzPP8nRS',
+      isDefault: true,
+      audioURL:
+        'https://www.youtube.com/watch?v=x7BCa9Y8Of8&ab_channel=Geytkeypur',
+    }),
+  ]);
   return scenes;
 }
 
@@ -47,12 +67,13 @@ async function seed() {
 
   const users = await createUsers();
   const groups = await createGroups();
+  const scenes = await createScenes();
 
   await users[0].setGroups(groups);
   await users[1].setGroups(groups);
   await users[2].addGroup(groups[0]);
 
-  return { users, groups };
+  return { users, groups, scenes };
 }
 
 async function runSeed() {

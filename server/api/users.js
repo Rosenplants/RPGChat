@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Op } = require('sequelize');
 const {
   models: { Group, User, Character, Message, Roll, Scene },
 } = require('../db');
@@ -56,7 +57,8 @@ router.post('/:id/messages', async (req, res, next) => {
   }
 });
 
-router.post('/:id/rolls', async (req, res, next) => {
+// Create a new dice roll message
+router.post('/:id/messages/rolls', async (req, res, next) => {
   try {
     const { threadId, rolls } = req.body;
     const roll = await Roll.create({ userInput: rolls });
@@ -78,6 +80,54 @@ router.post('/:id/rolls', async (req, res, next) => {
         ],
       })
     );
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Send a scene through a message
+router.post('/:userId/messages/scenes/:sceneId', async (req, res, next) => {
+  try {
+    const { threadId } = req.body;
+    const message = await Message.create();
+    await message.setScene(req.params.sceneId);
+    await message.setThread(threadId);
+    await message.setUser(req.params.id);
+    res.json(
+      await Message.findOne({
+        where: {
+          id: message.id,
+        },
+        include: [
+          {
+            model: User,
+          },
+          { model: Scene, as: 'scene' },
+          { model: Roll, as: 'roll' },
+        ],
+      })
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get all of a user's scenes
+router.get('/:userId/scenes', async (req, res, next) => {
+  try {
+    const scenes = await Scene.findAll({
+      where: {
+        [Op.or]: [
+          {
+            userId: req.params.userId,
+          },
+          {
+            isDefault: true,
+          },
+        ],
+      },
+    });
+    res.json(scenes);
   } catch (error) {
     next(error);
   }

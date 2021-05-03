@@ -54,11 +54,33 @@ export const sentRoll = (userId, threadId, content) => {
   return async (dispatch, getState, { axios }) => {
     try {
       const [_cmd, rolls] = content.split(':');
-      const { data: message } = await axios.post(`/api/users/${userId}/rolls`, {
-        threadId,
-        rolls,
-      });
+      const { data: message } = await axios.post(
+        `/api/users/${userId}/messages/rolls`,
+        {
+          threadId,
+          rolls,
+        }
+      );
       socket.emit('send roll', {
+        message,
+        to: `room ${threadId}`,
+      });
+      dispatch(newMessage(message));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const sentScene = (userId, threadId, sceneId) => {
+  return async (dispatch, getState, { axios }) => {
+    try {
+      const {
+        data: message,
+      } = await axios.post(`/api/users/${userId}/messages/scenes/${sceneId}`, {
+        threadId,
+      });
+      socket.emit('send message', {
         message,
         to: `room ${threadId}`,
       });

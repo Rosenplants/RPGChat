@@ -10,6 +10,7 @@ import games from './games';
 import character from './character';
 import messages from './messages';
 import gameName from './gameName';
+import scenes from './scenes';
 
 const reducer = combineReducers({
   auth,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   character,
   messages,
   gameName,
+  scenes,
 });
 
 // Creating Our Store

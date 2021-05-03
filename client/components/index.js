@@ -36,7 +36,7 @@ class Chat extends React.Component {
       <div id="chat">
         <Navbar gameId={gameId} />
         <Main threadId={threadId} />
-        <TabContainer />
+        <TabContainer threadId={threadId} />
         <TabList />
       </div>
     );

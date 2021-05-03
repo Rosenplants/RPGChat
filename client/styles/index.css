@@ -132,10 +132,21 @@ main {
 }
 
 /* Roll Styes */
-.roll {
+.roll,
+.scene-message {
   background-color: burlywood;
   text-align: center;
   padding: 0.25rem 0;
+}
+
+/* Scene Message Styles */
+.scene-img-container {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+.scene-img-container > img {
+  width: 100%;
 }
 
 /* Tabs Styles */
@@ -153,4 +164,5 @@ main {
   background-image: linear-gradient(to right, white, #ffe4fa);
   flex: 0 0 15%;
   /* transition: 1s; */
+  overflow: scroll;
 }
