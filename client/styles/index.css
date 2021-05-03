@@ -123,6 +123,11 @@ main {
 
 #welcome {
   flex: 1 1 100%;
+  padding: 0.5rem;
+}
+
+#welcome > h1 {
+  text-align: center;
 }
 
 #messages-container {
