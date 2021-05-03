@@ -18,6 +18,11 @@ p {
   display: flex;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Authentication Pages */
 #auth-form {
   width: 100%;
@@ -49,6 +54,21 @@ p {
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+/* Game Select */
+.game-select {
+  place-content: center;
+  text-align: center;
+}
+
+.game-select > button {
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.game-select > a {
+  margin-top: 0.5rem;
 }
 
 /* Invite Forms */

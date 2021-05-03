@@ -13,16 +13,16 @@ class GameSelection extends Component {
   render() {
     const { games, id } = this.props;
     return (
-      <div>
+      <div className="flex-column game-select">
         <h3>Which Room Would You Like To Enter?</h3>
         {games.length ? (
-          <ul>
+          <>
             {games.map((game) => (
               <Link to={`/game/${game.id}`} key={game.id}>
-                <li>{game.name}</li>
+                {game.name}
               </Link>
             ))}
-          </ul>
+          </>
         ) : (
           `You haven't joined any games yet`
         )}
