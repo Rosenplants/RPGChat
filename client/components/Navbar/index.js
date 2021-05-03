@@ -20,6 +20,7 @@ class Navbar extends Component {
           Logout
         </a>
         <Link to="/">Go Back to Game Selection?</Link>
+        <Link to={`/game/${gameId}/invite`}>Invite others?</Link>
         <h4>Open Rooms:</h4>
         {threads.map((thread) => (
           <ThreadLi

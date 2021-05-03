@@ -14,6 +14,10 @@ p {
   margin: 0;
 }
 
+.flex-row {
+  display: flex;
+}
+
 /* Authentication Pages */
 #auth-form {
   width: 100%;
@@ -45,6 +49,22 @@ p {
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+/* Invite Forms */
+.form {
+  justify-content: space-evenly;
+}
+
+.form > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.form-bubble > #invite-start {
+  place-self: flex-start center;
 }
 
 /* Chat Container Styles */

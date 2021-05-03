@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import history from '../../history';
 import { assocUser } from '../../store/games';
 
 class Invite extends Component {
@@ -29,33 +31,43 @@ class Invite extends Component {
 
   render() {
     const { email, username } = this.state;
+    const { params } = this.props;
     return (
-      <div className="flex-row">
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="email">Invite by email:</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Invite by Email</button>
-        </form>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Invite by username:</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Invite by Username</button>
-        </form>
-      </div>
+      <>
+        <div className="form flex-row">
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="email">Invite by email:</label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={this.handleChange}
+            />
+            <button type="submit">Invite by Email</button>
+          </form>
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="username">Invite by username:</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={this.handleChange}
+            />
+            <button type="submit">Invite by Username</button>
+          </form>
+        </div>
+        <button
+          type="button"
+          onClick={() => history.push(`/game/${params.gameId}`)}
+          id="invite-start"
+        >
+          Start Playing!
+        </button>
+      </>
     );
   }
 }
