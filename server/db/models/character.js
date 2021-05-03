@@ -4,12 +4,16 @@ const db = require('../db');
 const Character = db.define('character', {
   name: {
     type: STRING,
+    defaultValue: 'unnamed',
   },
   imageURL: {
     type: TEXT,
+    defaultValue:
+      'https://www.jing.fm/clipimg/detail/116-1168390_baidu-person-outline-comments-human-head-icon-png.png',
   },
   description: {
     type: TEXT,
+    defaultValue: '',
   },
   isGM: {
     type: BOOLEAN,

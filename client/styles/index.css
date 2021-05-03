@@ -211,3 +211,7 @@ main {
   /* transition: 1s; */
   overflow: scroll;
 }
+
+#tab-container img {
+  width: 100%;
+}

@@ -57,6 +57,19 @@ router.post('/:id/messages', async (req, res, next) => {
   }
 });
 
+// Edit a specific character
+router.put('/:id/characters', async (req, res, next) => {
+  try {
+    const updatedCharacter = await Character.update(req.body, {
+      where: { userId: req.params.id, groupId: req.body.groupId },
+    });
+    if (updatedCharacter[0] !== 1) throw new Error('something fucked');
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Create a new dice roll message
 router.post('/:id/messages/rolls', async (req, res, next) => {
   try {
