@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ThreadLi from './ThreadLi';
 import { logUserOut } from '../../store/auth';
 
@@ -10,12 +11,16 @@ class Navbar extends Component {
   };
 
   render() {
-    const { threads, gameId } = this.props;
+    const { threads, gameId, username, gameName } = this.props;
     return (
       <nav role="navigation">
-        <a href="#" onClick={this.handleLogOut}>
+        <h2>{gameName}</h2>
+        <h3>Welcome, {username}!</h3>
+        <a href="/" onClick={this.handleLogOut}>
           Logout
         </a>
+        <Link to="/">Go Back to Game Selection?</Link>
+        <h4>Open Rooms:</h4>
         {threads.map((thread) => (
           <ThreadLi
             thread={thread}
@@ -30,6 +35,8 @@ class Navbar extends Component {
 
 const mapState = (state) => ({
   threads: state.threads,
+  username: state.auth.username,
+  gameName: state.gameName,
 });
 
 const mapDispatch = (dispatch) => ({

@@ -58,8 +58,19 @@ p {
 /* Navbar Styles */
 nav {
   background-image: linear-gradient(to left, white, #e1dabd);
-  flex: 1 0 15%;
+  flex: 1 0 20%;
+  display: flex;
+  flex-direction: column;
   /* padding: 3rem; */
+}
+
+nav > h2,
+nav > h4 {
+  margin-bottom: 0;
+}
+
+.thread {
+  margin: 5px 0;
 }
 
 /* Main Chat Body Styles */
@@ -68,6 +79,10 @@ main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+
+#welcome {
+  flex: 1 1 100%;
 }
 
 #messages-container {

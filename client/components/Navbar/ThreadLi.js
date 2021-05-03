@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function ThreadLi({ thread, threadURL }) {
   return (
-    <div className={`${thread.name}`}>
+    <div className={`${thread.name} thread`}>
       <Link to={threadURL} className="thread-title">
         {thread.name}
       </Link>

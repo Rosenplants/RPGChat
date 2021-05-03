@@ -20,7 +20,14 @@ router.post('/', async (req, res, next) => {
 });
 
 // To Get ONE Group
-// router.get('/:id')
+router.get('/:id', async (req, res, next) => {
+  try {
+    const game = await Group.findByPk(req.params.id);
+    res.json(game);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Get ALL of One Group's Threads
 router.get('/:groupId/threads', async (req, res, next) => {

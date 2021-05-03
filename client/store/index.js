@@ -9,6 +9,7 @@ import tabs from './tabs';
 import games from './games';
 import character from './character';
 import messages from './messages';
+import gameName from './gameName';
 
 const reducer = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   games,
   character,
   messages,
+  gameName,
 });
 
 // Creating Our Store
