@@ -13,15 +13,6 @@ class Chat extends React.Component {
     const { user, getGameInfo, match } = this.props;
 
     getGameInfo(user.id, +match.params.gameId);
-
-    socket.auth = { username: user.username, userid: user.id };
-    socket.connect();
-    // is this the right place? we'll find out!
-    socket.on('connect_error', (err) => {
-      if (err.message === 'invalid username') {
-        throw new Error('something went wrong, please try again');
-      }
-    });
   }
 
   componentWillUnmount() {

@@ -23,6 +23,9 @@ export const getUser = () => {
             authorization: token,
           },
         });
+
+        socket.auth = { username: user.username, userid: user.id };
+        socket.connect();
         dispatch(setAuth(user));
         history.push('/');
       }
@@ -64,7 +67,7 @@ export const logUserOut = () => {
   return async (dispatch, getState, { axios }) => {
     try {
       window.localStorage.removeItem(TOKEN);
-      // const {data: session} = await axios.get('/auth/guest');
+      socket.removeAllListeners();
       dispatch(setLogOut());
       history.push('/login');
     } catch (error) {
