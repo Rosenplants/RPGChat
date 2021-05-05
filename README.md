@@ -32,5 +32,11 @@ Built for the Grace Hopper stackathon, RPG Chat is a messaging website built wit
 * Overhaul the styling for consistency and, well, looking good.
 
 ## Recent Updates
+May 4th, 2021
+* Fixed a couple messaging related bugs:
+ * Messages no longer carry over into the welcome screen of the next game when switching between them
+ * Leaving and entering other games no longer makes the user receive messages multiple times
+* Added basic user feedback for when log ins and sign ups fail
+
 May 3rd, 2021
 * MVP finished and deployed for Stackathon presentation!!
