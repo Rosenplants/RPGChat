@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MessageContainer from './MessageContainer';
 import ChatBox from './ChatBox';
-import { fetchMessages, newMessage } from '../../store/messages';
+import { clearMessages, fetchMessages, newMessage } from '../../store/messages';
 import socket from '../../socket';
 
 // Create conditional here to return welcome screen or Messages ?
@@ -37,8 +37,10 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
+    const { leaveGame } = this.props;
     socket.off('receive message');
     socket.off('receive roll');
+    leaveGame();
   }
 
   render() {
@@ -55,6 +57,7 @@ class Main extends Component {
 const mapDispatch = (dispatch) => ({
   getMessages: (threadId) => dispatch(fetchMessages(threadId)),
   recMessage: (message) => dispatch(newMessage(message)),
+  leaveGame: () => dispatch(clearMessages()),
 });
 
 export default connect(null, mapDispatch)(Main);
