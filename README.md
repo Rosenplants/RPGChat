@@ -20,7 +20,7 @@ Built for the Grace Hopper stackathon, RPG Chat is a messaging website built wit
 
 ## Roadmap
 * Improving the Sign Up / Log In / Invite a Player experience
-  * Adding feedback to user when errors occur
+  * ~~Adding feedback to user when errors occur~~
   * Adding feedback to users when they've successfully invited players to their game
   * Finalizing and implementing a way for users to invite someone without an account to their game
   * Allowing a user to accept or reject an invitation rather than just being added
@@ -34,8 +34,8 @@ Built for the Grace Hopper stackathon, RPG Chat is a messaging website built wit
 ## Recent Updates
 May 4th, 2021
 * Fixed a couple messaging related bugs:
- * Messages no longer carry over into the welcome screen of the next game when switching between them
- * Leaving and entering other games no longer makes the user receive messages multiple times
+  * Messages no longer carry over into the welcome screen of the next game when switching between them
+  * Leaving and entering other games no longer makes the user receive messages multiple times
 * Added basic user feedback for when log ins and sign ups fail
 
 May 3rd, 2021
