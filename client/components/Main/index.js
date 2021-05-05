@@ -10,13 +10,13 @@ import socket from '../../socket';
 class Main extends Component {
   componentDidMount() {
     const { recMessage } = this.props;
+
     socket.on('receive message', ({ message, from }) => {
       recMessage(message);
     });
     socket.on('receive roll', ({ message, from }) => {
       recMessage(message);
     });
-    socket.on('');
   }
 
   componentDidUpdate(prevProps) {
@@ -34,6 +34,11 @@ class Main extends Component {
         room: `room ${threadId}`,
       });
     }
+  }
+
+  componentWillUnmount() {
+    socket.off('receive message');
+    socket.off('receive roll');
   }
 
   render() {
