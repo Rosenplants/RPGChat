@@ -1,5 +1,6 @@
 import history from '../history';
 import socket from '../socket';
+import { setError } from './error';
 
 /* eslint-disable no-console */
 const TOKEN = 'token';
@@ -44,7 +45,7 @@ export const logIn = (email, password) => {
       window.localStorage.setItem(TOKEN, token);
       dispatch(getUser());
     } catch (error) {
-      dispatch(setAuth({ error }));
+      dispatch(setError(error.response.data));
     }
   };
 };
@@ -58,7 +59,7 @@ export const signUp = (userInfo) => {
       window.localStorage.setItem(TOKEN, token);
       dispatch(getUser());
     } catch (error) {
-      dispatch(setAuth({ error }));
+      dispatch(setError(error.response.data));
     }
   };
 };
