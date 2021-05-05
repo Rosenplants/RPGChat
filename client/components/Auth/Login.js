@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logIn } from '../../store/auth';
+import { setError } from '../../store/error';
 
 class Login extends Component {
   constructor(props) {
@@ -10,6 +11,11 @@ class Login extends Component {
       email: '',
       password: '',
     };
+  }
+
+  componentDidMount() {
+    const { clearError } = this.props;
+    clearError();
   }
 
   handleChange = (evt) => {
@@ -25,6 +31,7 @@ class Login extends Component {
   };
 
   render() {
+    const { error } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -35,6 +42,7 @@ class Login extends Component {
           placeholder="Email"
           value={this.state.email}
           onChange={this.handleChange}
+          required
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -44,16 +52,23 @@ class Login extends Component {
           placeholder="Password"
           value={this.state.password}
           onChange={this.handleChange}
+          required
         />
         <button type="submit">Log In</button>
+        {error && <p>{error}</p>}
         <Link to="/signup">Sign Up For An Account Here</Link>
       </form>
     );
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  sendLogIn: (email, password) => dispatch(logIn(email, password)),
+const mapState = (state) => ({
+  error: state.error,
 });
 
-export default connect(null, mapDispatch)(Login);
+const mapDispatch = (dispatch) => ({
+  sendLogIn: (email, password) => dispatch(logIn(email, password)),
+  clearError: () => dispatch(setError('')),
+});
+
+export default connect(mapState, mapDispatch)(Login);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signUp } from '../../store/auth';
+import { setError } from '../../store/error';
 
 class Signup extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class Signup extends Component {
       password: '',
       username: '',
     };
+  }
+
+  componentDidMount() {
+    const { clearError } = this.props;
+    clearError();
   }
 
   handleChange = (evt) => {
@@ -26,6 +32,7 @@ class Signup extends Component {
   };
 
   render() {
+    const { error } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -36,6 +43,7 @@ class Signup extends Component {
           placeholder="Email"
           value={this.state.email}
           onChange={this.handleChange}
+          required
         />
         <label htmlFor="username">Username:</label>
         <input
@@ -45,6 +53,7 @@ class Signup extends Component {
           placeholder="Username"
           value={this.state.username}
           onChange={this.handleChange}
+          required
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -54,16 +63,23 @@ class Signup extends Component {
           placeholder="Password"
           value={this.state.password}
           onChange={this.handleChange}
+          required
         />
         <button type="submit">Sign Up</button>
+        {error && <p>{error}</p>}
         <Link to="/login">Already Have An Account? Log In Here</Link>
       </form>
     );
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  sendSignUp: (userInfo) => dispatch(signUp(userInfo)),
+const mapState = (state) => ({
+  error: state.error,
 });
 
-export default connect(null, mapDispatch)(Signup);
+const mapDispatch = (dispatch) => ({
+  sendSignUp: (userInfo) => dispatch(signUp(userInfo)),
+  clearError: () => dispatch(setError('')),
+});
+
+export default connect(mapState, mapDispatch)(Signup);
