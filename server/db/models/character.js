@@ -4,7 +4,6 @@ const db = require('../db');
 const Character = db.define('character', {
   name: {
     type: STRING,
-    defaultValue: 'unnamed',
   },
   imageURL: {
     type: TEXT,
@@ -16,6 +15,10 @@ const Character = db.define('character', {
     defaultValue: '',
   },
   isGM: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
+  hasAcceptedInvite: {
     type: BOOLEAN,
     defaultValue: false,
   },

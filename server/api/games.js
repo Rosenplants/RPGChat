@@ -8,6 +8,7 @@ module.exports = router;
 // Get All Groups FOR ADMIN ONLY LATER
 // router.get('/')
 
+// Create a new group
 router.post('/', async (req, res, next) => {
   try {
     const { name, userId } = req.body;
@@ -43,13 +44,12 @@ router.get('/:groupId/threads', async (req, res, next) => {
   }
 });
 
+// Associate a new user with a group
 router.post('/:groupId/users', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: req.body,
     });
-
-    console.log(user);
 
     if (!user) throw new Error('No such user exists');
 
