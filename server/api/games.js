@@ -57,6 +57,10 @@ router.post('/:groupId/users', async (req, res, next) => {
 
     res.sendStatus(201);
   } catch (error) {
-    next(error);
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      res.status(400).send('User has already been invited');
+    } else {
+      next(error);
+    }
   }
 });

@@ -24,7 +24,8 @@ p {
 }
 
 /* Authentication Pages */
-#auth-form {
+#auth-form,
+#create-game-form {
   width: 100%;
   height: 100%;
   display: grid;
@@ -32,7 +33,8 @@ p {
   grid-template-rows: repeat(3, 1fr);
 }
 
-#auth-form > h1 {
+#auth-form > h1,
+#create-game-form > h1 {
   grid-row: 1;
   grid-column: 2;
   place-self: center;
@@ -46,6 +48,7 @@ p {
   min-height: 300px;
   min-width: 280px;
   display: grid;
+  text-align: center;
 }
 
 .form-bubble > form {
