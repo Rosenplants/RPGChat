@@ -3,6 +3,7 @@ import { gotCharacter } from './character';
 import { gotName } from './gameName';
 import { gotScenes } from './scenes';
 import history from '../history';
+import { setError } from './error';
 
 // Action Types
 const GOT_GAMES = 'GOT_GAMES';
@@ -62,8 +63,9 @@ export const assocUser = (identObj, gameId) => {
       const res = await axios.post(`/api/games/${gameId}/users`, identObj);
 
       if (res.status !== 201) throw new Error('oops');
+      else dispatch(setError('The player has been invited!'));
     } catch (error) {
-      console.error(error);
+      dispatch(setError(error.response.data));
     }
   };
 };

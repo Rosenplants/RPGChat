@@ -8,7 +8,7 @@ class CharInfo extends Component {
     const { character } = this.props;
     this.state = {
       inEditMode: false,
-      name: character.name,
+      name: character.name !== null ? character.name : 'unnamed',
       imageURL: character.imageURL,
       description: character.description,
     };
@@ -39,6 +39,7 @@ class CharInfo extends Component {
   };
 
   render() {
+    console.log(this.state.name);
     const { inEditMode } = this.state;
     const { character } = this.props;
     if (inEditMode)
@@ -75,9 +76,9 @@ class CharInfo extends Component {
     return (
       <div id="CharInfo">
         <h3>Your Character</h3>
-        <img src={character.imageURL} alt="your character" />
-        <h4>{character.name}</h4>
-        <p>{character.description}</p>
+        <img src={this.state.imageURL} alt="your character" />
+        <h4>{this.state.name}</h4>
+        <p>{this.state.description}</p>
         <button type="button" onClick={this.handleClick}>
           Edit Your Character
         </button>
