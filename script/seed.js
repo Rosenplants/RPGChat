@@ -1,6 +1,6 @@
 const {
   db,
-  models: { User, Group, Thread, Message, Scene, Character },
+  models: { User, Group, Thread, Message, Scene, Character, Invite },
 } = require('../server/db');
 
 async function createUsers() {
@@ -61,6 +61,10 @@ async function createScenes() {
   return scenes;
 }
 
+async function createInvites() {
+  return Promise.all([Invite.create(), Invite.create()]);
+}
+
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
@@ -68,10 +72,18 @@ async function seed() {
   const users = await createUsers();
   const groups = await createGroups();
   const scenes = await createScenes();
+  const invites = await createInvites();
 
   await users[0].setGroups(groups);
   await users[1].setGroups(groups);
   await users[2].addGroup(groups[0]);
+
+  await invites[0].setInviter(users[0]);
+  await invites[0].setGroup(groups[0]);
+
+  await invites[1].setInviter(users[1]);
+  await invites[1].setInvitee(users[2]);
+  await invites[1].setGroup(groups[1]);
 
   return { users, groups, scenes };
 }
