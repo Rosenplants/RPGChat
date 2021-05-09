@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
 const {
-  models: { Group, User, Character, Message, Roll, Scene },
+  models: { Group, User, Character, Message, Roll, Scene, Invite },
 } = require('../db');
+const { requireToken } = require('./gateMiddleware');
 
 module.exports = router;
 
@@ -26,6 +27,39 @@ router.get('/:id/games', async (req, res, next) => {
       },
     });
     res.json(games);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get the games a user has been invited to
+router.get('/:id/invites', requireToken, async (req, res, next) => {
+  try {
+    if (+req.params.id !== req.user.id) throw new Error('Bad token');
+    const invites = await Invite.findAll({
+      include: [
+        {
+          model: Group,
+          attributes: ['name'],
+        },
+        {
+          model: User,
+          as: 'inviter',
+          attributes: ['username'],
+        },
+      ],
+      where: {
+        [Op.or]: [
+          {
+            email: req.user.email,
+          },
+          {
+            inviteeId: req.user.id,
+          },
+        ],
+      },
+    });
+    res.json(invites);
   } catch (error) {
     next(error);
   }
