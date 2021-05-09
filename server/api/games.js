@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
   models: { Group, Thread, User },
 } = require('../db');
+const Invite = require('../db/models/invite');
 
 module.exports = router;
 
@@ -44,21 +45,80 @@ router.get('/:groupId/threads', async (req, res, next) => {
   }
 });
 
-// Associate a new user with a group
+
+// invite a user to a group
 router.post('/:groupId/users', async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      where: req.body,
-    });
+    let user;
+    let invite;
+    let inviteExists;
 
-    if (!user) throw new Error('No such user exists');
+    const group = await Group.findByPk(req.params.groupId);
+    const players = await group.getUsers();
 
-    await user.addGroup(req.params.groupId);
+    if (req.body.username) {
+      user = await User.findOne({
+        where: {
+          username: req.body.username,
+        },
+      });
+      if (!user) {
+        const noUsernameError = new Error('No such user exists');
+        noUsernameError.name = 'NoUserWithUsername';
+        throw noUsernameError;
+      }
+    } else if (req.body.email) {
+      user = await User.findOne({
+        where: {
+          email: req.body.email,
+        },
+      });
+    }
+
+    if (!user) {
+      inviteExists = await Invite.findOne({
+        where: {
+          groupId: req.params.groupId,
+          email: req.body.email,
+        },
+      });
+      if (inviteExists !== null) {
+        const invitePending = new Error();
+        invitePending.name = 'UserAlreadyInvited';
+        throw invitePending;
+      }
+      invite = await Invite.create({ email: req.body.email });
+    } else if (players.some((player) => player.id === user.id)) {
+      const invitedError = new Error();
+      invitedError.name = 'UserIsAlreadyPlayer';
+      throw invitedError;
+    } else {
+      inviteExists = await Invite.findOne({
+        where: {
+          groupId: req.params.groupId,
+          inviteeId: user.id,
+        },
+      });
+      if (inviteExists !== null) {
+        const invitePending = new Error();
+        invitePending.name = 'UserAlreadyInvited';
+        throw invitePending;
+      }
+      invite = await Invite.create();
+      await invite.setInvitee(user);
+    }
+
+    invite.setInviter(req.body.inviter);
+    invite.setGroup(group);
 
     res.sendStatus(201);
   } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      res.status(400).send('User has already been invited');
+    if (error.name === 'NoUserWithUsername') {
+      res.status(400).send('There is no user with that username');
+    } else if (error.name === 'UserIsAlreadyPlayer') {
+      res.status(400).send('User has already joined this game');
+    } else if (error.name === 'UserAlreadyInvited') {
+      res.status(400).send('User has already been invited to this game');
     } else {
       next(error);
     }
