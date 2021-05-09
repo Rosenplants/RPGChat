@@ -56,10 +56,10 @@ export const createGame = (userId, name) => {
   };
 };
 
-export const assocUser = (identObj, gameId) => {
+export const assocUser = (inviteInfo, gameId) => {
   return async (dispatch, getState, { axios }) => {
     try {
-      const res = await axios.post(`/api/games/${gameId}/users`, identObj);
+      const res = await axios.post(`/api/games/${gameId}/users`, inviteInfo);
 
       if (res.status !== 201) throw new Error('oops');
     } catch (error) {

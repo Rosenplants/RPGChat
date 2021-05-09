@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
   models: { Group, Thread, User },
 } = require('../db');
+const Invite = require('../db/models/invite');
 
 module.exports = router;
 
@@ -45,15 +46,33 @@ router.get('/:groupId/threads', async (req, res, next) => {
 
 router.post('/:groupId/users', async (req, res, next) => {
   try {
-    const user = await User.findOne({
-      where: req.body,
-    });
+    let user;
+    let invite;
 
-    console.log(user);
+    if (req.body.username) {
+      user = await User.findOne({
+        where: {
+          username: req.body.username,
+        },
+      });
+      if (!user) throw new Error('No such user exists');
+    } else if (req.body.email) {
+      user = await User.findOne({
+        where: {
+          email: req.body.email,
+        },
+      });
+    }
 
-    if (!user) throw new Error('No such user exists');
+    if (!user) {
+      invite = await Invite.create({ email: req.body.email });
+    } else {
+      invite = await Invite.create();
+      await invite.setInvitee(user);
+    }
 
-    await user.addGroup(req.params.groupId);
+    invite.setInviter(req.body.inviter);
+    invite.setGroup(req.params.groupId);
 
     res.sendStatus(201);
   } catch (error) {

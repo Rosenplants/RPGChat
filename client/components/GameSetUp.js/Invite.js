@@ -21,11 +21,17 @@ class Invite extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const { params, inviteUser } = this.props;
+    const { params, inviteUser, userId } = this.props;
     if (evt.target.email) {
-      inviteUser({ email: evt.target.email.value }, params.gameId);
+      inviteUser(
+        { email: evt.target.email.value, inviter: userId },
+        params.gameId
+      );
     } else {
-      inviteUser({ username: evt.target.username.value }, params.gameId);
+      inviteUser(
+        { username: evt.target.username.value, inviter: userId },
+        params.gameId
+      );
     }
   };
 
@@ -72,8 +78,12 @@ class Invite extends Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  inviteUser: (identObj, gameId) => dispatch(assocUser(identObj, gameId)),
+const mapState = (state) => ({
+  userId: state.auth.id,
 });
 
-export default connect(null, mapDispatch)(Invite);
+const mapDispatch = (dispatch) => ({
+  inviteUser: (inviteInfo, gameId) => dispatch(assocUser(inviteInfo, gameId)),
+});
+
+export default connect(mapState, mapDispatch)(Invite);
