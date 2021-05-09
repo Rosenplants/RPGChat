@@ -9,6 +9,7 @@ module.exports = router;
 // Get All Groups FOR ADMIN ONLY LATER
 // router.get('/')
 
+// Create a new group
 router.post('/', async (req, res, next) => {
   try {
     const { name, userId } = req.body;
@@ -43,6 +44,7 @@ router.get('/:groupId/threads', async (req, res, next) => {
     next(error);
   }
 });
+
 
 // invite a user to a group
 router.post('/:groupId/users', async (req, res, next) => {

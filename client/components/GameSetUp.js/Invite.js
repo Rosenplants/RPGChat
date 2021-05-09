@@ -37,7 +37,7 @@ class Invite extends Component {
 
   render() {
     const { email, username } = this.state;
-    const { params } = this.props;
+    const { params, error } = this.props;
     return (
       <>
         <div className="form flex-row">
@@ -66,6 +66,7 @@ class Invite extends Component {
             <button type="submit">Invite by Username</button>
           </form>
         </div>
+        {error && <p>{error}</p>}
         <button
           type="button"
           onClick={() => history.push(`/game/${params.gameId}`)}
@@ -80,6 +81,7 @@ class Invite extends Component {
 
 const mapState = (state) => ({
   userId: state.auth.id,
+  error: state.error,
 });
 
 const mapDispatch = (dispatch) => ({
