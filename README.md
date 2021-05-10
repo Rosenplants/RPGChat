@@ -21,9 +21,11 @@ Built for the Grace Hopper stackathon, RPG Chat is a messaging website built wit
 ## Roadmap
 * Improving the Sign Up / Log In / Invite a Player experience
   * ~~Adding feedback to user when errors occur~~
-  * Adding feedback to users when they've successfully invited players to their game
-  * Finalizing and implementing a way for users to invite someone without an account to their game
-  * Allowing a user to accept or reject an invitation rather than just being added
+  * ~~Adding feedback to users when they've successfully invited players to their game~~
+  * ~~Finalizing and implementing a way for users to invite someone without an account to their game~~
+  * ~~Allowing a user to accept or reject an invitation rather than just being added~~
+  * Move invite feedback to something like toast notifications
+  * Send emails to folks who are invited by email but don't have accounts yet
 * Implementing private messaging and non-default group threads in games
 * Allow users to build their own scenes for each group, or scenes that are available in all of their groups
 * Include audio options in scenes
@@ -32,6 +34,13 @@ Built for the Grace Hopper stackathon, RPG Chat is a messaging website built wit
 * Overhaul the styling for consistency and, well, looking good.
 
 ## Recent Updates
+May 9th, 2021
+* Overhauled pre-existing invite system
+ * Users are no longer automatically added to a group if someone invites them
+ * Users can accept or reject invitations
+ * Users can invite others by email if they don't already have an account
+* Added feedback to let users know when an invite was successful or why it wasn't
+
 May 4th, 2021
 * Fixed a couple messaging related bugs:
   * Messages no longer carry over into the welcome screen of the next game when switching between them
