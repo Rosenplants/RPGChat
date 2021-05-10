@@ -18,10 +18,6 @@ const Character = db.define('character', {
     type: BOOLEAN,
     defaultValue: false,
   },
-  hasAcceptedInvite: {
-    type: BOOLEAN,
-    defaultValue: false,
-  },
 });
 
 module.exports = Character;

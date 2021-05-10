@@ -72,18 +72,18 @@ async function seed() {
   const users = await createUsers();
   const groups = await createGroups();
   const scenes = await createScenes();
-  const invites = await createInvites();
+  // const invites = await createInvites();
 
   await users[0].setGroups(groups);
   await users[1].setGroups(groups);
   await users[2].addGroup(groups[0]);
 
-  await invites[0].setInviter(users[0]);
-  await invites[0].setGroup(groups[0]);
+  // await invites[0].setInviter(users[0]);
+  // await invites[0].setGroup(groups[0]);
 
-  await invites[1].setInviter(users[1]);
-  await invites[1].setInvitee(users[2]);
-  await invites[1].setGroup(groups[1]);
+  // await invites[1].setInviter(users[1]);
+  // await invites[1].setInvitee(users[2]);
+  // await invites[1].setGroup(groups[1]);
 
   return { users, groups, scenes };
 }

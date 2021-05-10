@@ -74,6 +74,11 @@ p {
   margin-top: 0.5rem;
 }
 
+.invitation {
+  justify-content: center;
+  gap: 1rem;
+}
+
 /* Invite Forms */
 .form {
   justify-content: space-evenly;

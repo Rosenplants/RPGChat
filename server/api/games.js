@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const {
-  models: { Group, Thread, User },
+  models: { Group, Thread, User, Invite },
 } = require('../db');
-const Invite = require('../db/models/invite');
 
 module.exports = router;
 
@@ -44,7 +43,6 @@ router.get('/:groupId/threads', async (req, res, next) => {
     next(error);
   }
 });
-
 
 // invite a user to a group
 router.post('/:groupId/users', async (req, res, next) => {

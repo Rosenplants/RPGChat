@@ -3,13 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import history from '../../history';
 import { fetchGames } from '../../store/games';
-import { fetchInvites } from '../../store/invites';
+import { fetchInvites, acceptInvite, rejectInvite } from '../../store/invites';
 
 class GameSelection extends Component {
   componentDidMount() {
     const { getGames, getInvites, id } = this.props;
     getGames(id);
     getInvites(id);
+  }
+
+  handleAccept(inviteId) {
+    const { accept, id } = this.props;
+    accept(inviteId, id);
+  }
+
+  handleReject(inviteId) {
+    const { reject } = this.props;
+    reject(inviteId);
   }
 
   render() {
@@ -30,7 +40,31 @@ class GameSelection extends Component {
         )}
         <h4>Game Invitations</h4>
         {invites.length ? (
-          <p>You have some invites and we'll get there.</p>
+          <>
+            {invites.map((invite) => {
+              console.log({ invite });
+              return (
+                <div className="flex-row invitation" key={invite.id}>
+                  <p>
+                    You have been invited to play in {invite.group.name} by{' '}
+                    {invite.inviter.username}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={(evt) => this.handleAccept(invite.id)}
+                  >
+                    Accept Invite
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(evt) => this.handleReject(invite.id)}
+                  >
+                    Reject Invite
+                  </button>
+                </div>
+              );
+            })}
+          </>
         ) : (
           <p>You haven't been invited to any new games</p>
         )}
@@ -55,6 +89,8 @@ const mapDispatch = (dispatch) => ({
   getInvites: (userId) => {
     dispatch(fetchInvites(userId));
   },
+  accept: (inviteId, userId) => dispatch(acceptInvite(inviteId, userId)),
+  reject: (inviteId) => dispatch(rejectInvite(inviteId)),
 });
 
 export default connect(mapState, mapDispatch)(GameSelection);
