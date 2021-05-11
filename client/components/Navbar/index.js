@@ -11,7 +11,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { threads, gameId, username, gameName } = this.props;
+    const { threads, gameId, threadId, username, gameName } = this.props;
     return (
       <nav role="navigation">
         <h2>{gameName}</h2>
@@ -21,12 +21,14 @@ class Navbar extends Component {
         </a>
         <Link to="/">Go Back to Game Selection?</Link>
         <Link to={`/game/${gameId}/invite`}>Invite others?</Link>
+        <Link to={`/game/${gameId}`}>Welcome Screen</Link>
         <h4>Open Rooms:</h4>
         {threads.map((thread) => (
           <ThreadLi
             thread={thread}
             threadURL={`/game/${gameId}/${thread.id}`}
             key={thread.id}
+            URLThread={threadId}
           />
         ))}
       </nav>

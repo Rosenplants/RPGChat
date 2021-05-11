@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ThreadLi({ thread, threadURL }) {
+export default function ThreadLi({ thread, threadURL, URLThread }) {
+  console.log({ URLThread });
+  console.log({ threadId: thread.id });
   return (
-    <div className={`${thread.name} thread`}>
+    <div
+      className={`${thread.name.split(' ').join('-')} threadLi ${
+        +URLThread === thread.id ? 'selected' : ''
+      }`}
+    >
       <Link to={threadURL} className="thread-title">
         {thread.name}
       </Link>

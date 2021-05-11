@@ -25,7 +25,7 @@ class Chat extends React.Component {
     const { gameId } = this.props.match.params;
     return (
       <div id="chat">
-        <Navbar gameId={gameId} />
+        <Navbar gameId={gameId} threadId={threadId} />
         <Main threadId={threadId} />
         <TabContainer threadId={threadId} gameId={gameId} />
         <TabList />

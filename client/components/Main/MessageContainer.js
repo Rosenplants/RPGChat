@@ -4,8 +4,8 @@ import Message from './Message';
 import Roll from './Roll';
 import Scene from './Scene';
 
-function MessageContainer({ messages, userId, username }) {
-  if (!messages.length)
+function MessageContainer({ messages, userId, username, threadId }) {
+  if (!messages.length || !threadId)
     return (
       <div id="welcome">
         <h1>Welcome!</h1>
