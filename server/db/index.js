@@ -21,10 +21,10 @@ Group.belongsToMany(User, { through: Character });
 User.hasMany(Scene);
 Scene.belongsTo(User);
 
-Scene.hasMany(Message, { as: 'scene', foreignKey: 'sceneId' });
+Scene.hasMany(Message);
 Message.belongsTo(Scene);
 
-Roll.hasMany(Message, { as: 'roll', foreignKey: 'rollId' });
+Roll.hasMany(Message);
 Message.belongsTo(Roll);
 
 Group.hasMany(Thread);
