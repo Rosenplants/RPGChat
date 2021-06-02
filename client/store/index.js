@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
+import addDispatch from '../socket/dispatchListeners';
 import auth from './auth';
 import threads from './threads';
 import tabOpen from './tabOpen';
@@ -36,5 +37,7 @@ const store = createStore(
     createLogger({ collapsed: true })
   )
 );
+
+addDispatch(store);
 
 export default store;

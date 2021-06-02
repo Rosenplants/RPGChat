@@ -1,22 +1,19 @@
-import { gotThreads } from './threads';
-import { gotCharacter } from './character';
-import { gotName } from './gameName';
-import { gotScenes } from './scenes';
+/* eslint-disable no-console */
 import history from '../history';
-import { setError } from './error';
-
-// Action Types
-const GOT_GAMES = 'GOT_GAMES';
-
-// Action Creators
-const gotGames = (games) => ({
-  type: GOT_GAMES,
-  games,
-});
+import { GOT_GAMES } from './actionTypes';
+import {
+  gotThreads,
+  gotCharacter,
+  gotName,
+  gotScenes,
+  setError,
+  gotGames,
+} from './actionCreators';
 
 // Thunk Creators
-export const fetchGames = (userId) => {
-  return async (dispatch, getState, { axios }) => {
+export const fetchGames =
+  (userId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const { data: games } = await axios.get(`/api/users/${userId}/games`);
       dispatch(gotGames(games));
@@ -24,10 +21,10 @@ export const fetchGames = (userId) => {
       console.error(error);
     }
   };
-};
 
-export const setFullGroup = (userId, groupId) => {
-  return async (dispatch, getState, { axios }) => {
+export const setFullGroup =
+  (userId, groupId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       // add route to get scenes / anything else later
       const [res1, res2, res3, res4] = await axios.all([
@@ -44,10 +41,10 @@ export const setFullGroup = (userId, groupId) => {
       console.error(error);
     }
   };
-};
 
-export const createGame = (userId, name) => {
-  return async (dispatch, getState, { axios }) => {
+export const createGame =
+  (userId, name) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const { data: game } = await axios.post('/api/games', { name, userId });
       history.push(`/game/${game.id}/invite`);
@@ -55,10 +52,10 @@ export const createGame = (userId, name) => {
       console.error(error);
     }
   };
-};
 
-export const assocUser = (identObj, gameId) => {
-  return async (dispatch, getState, { axios }) => {
+export const assocUser =
+  (identObj, gameId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const res = await axios.post(`/api/games/${gameId}/users`, identObj);
 
@@ -68,7 +65,6 @@ export const assocUser = (identObj, gameId) => {
       dispatch(setError(error.response.data));
     }
   };
-};
 
 // Reducer
 export default (state = [], action) => {

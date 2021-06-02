@@ -1,21 +1,11 @@
-// Action Types
-const GOT_CHARACTER = 'GOT_CHARACTER';
-const UPDATED_CHARACTER = 'UPDATE_CHARACTER';
-
-// Action Creators
-export const gotCharacter = (character) => ({
-  type: GOT_CHARACTER,
-  character,
-});
-
-const updatedCharacter = (character) => ({
-  type: UPDATED_CHARACTER,
-  character,
-});
+/* eslint-disable no-console */
+import { GOT_CHARACTER, UPDATED_CHARACTER } from './actionTypes';
+import { updatedCharacter } from './actionCreators';
 
 // Thunk Creators
-export const updateChar = (updatedChar) => {
-  return async (dispatch, getState, { axios }) => {
+export const updateChar =
+  (updatedChar) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const res = await axios.put(
         `/api/users/${updatedChar.userId}/characters`,
@@ -26,7 +16,6 @@ export const updateChar = (updatedChar) => {
       console.error(error);
     }
   };
-};
 
 // Reducer
 export default (state = {}, action) => {

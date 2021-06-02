@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logIn } from '../../store/auth';
-import { setError } from '../../store/error';
+import { setError } from '../../store/actionCreators';
 
 class Login extends Component {
   constructor(props) {

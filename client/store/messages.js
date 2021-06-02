@@ -1,28 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import socket from '../socket';
-
-// Action Type
-const GOT_MESSAGES = 'GOT_MESSAGES';
-const NEW_MESSAGE = 'NEW_MESSAGE';
-const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
-
-// Action Creator
-const gotMessages = (messages) => ({
-  type: GOT_MESSAGES,
-  messages,
-});
-
-export const newMessage = (message) => ({
-  type: NEW_MESSAGE,
-  message,
-});
-
-export const clearMessages = () => ({
-  type: CLEAR_MESSAGES,
-});
+import { GOT_MESSAGES, NEW_MESSAGE, CLEAR_MESSAGES } from './actionTypes';
+import { gotMessages, newMessage } from './actionCreators';
 
 // Thunk Creator
-export const fetchMessages = (threadId) => {
-  return async (dispatch, getState, { axios }) => {
+export const fetchMessages =
+  (threadId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const { data: messages } = await axios.get(
         `/api/threads/${threadId}/messages`
@@ -32,10 +17,10 @@ export const fetchMessages = (threadId) => {
       console.error(error);
     }
   };
-};
 
-export const sentMessage = (userId, threadId, content) => {
-  return async (dispatch, getState, { axios }) => {
+export const sentMessage =
+  (userId, threadId, content) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const { data: message } = await axios.post(
         `/api/users/${userId}/messages`,
@@ -53,10 +38,10 @@ export const sentMessage = (userId, threadId, content) => {
       console.error(error);
     }
   };
-};
 
-export const sentRoll = (userId, threadId, content) => {
-  return async (dispatch, getState, { axios }) => {
+export const sentRoll =
+  (userId, threadId, content) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const [_cmd, rolls] = content.split(':');
       const { data: message } = await axios.post(
@@ -75,10 +60,10 @@ export const sentRoll = (userId, threadId, content) => {
       console.error(error);
     }
   };
-};
 
-export const sentScene = (userId, threadId, sceneId) => {
-  return async (dispatch, getState, { axios }) => {
+export const sentScene =
+  (userId, threadId, sceneId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const { data: message } = await axios.post(
         `/api/users/${userId}/messages/scenes/${sceneId}`,
@@ -95,7 +80,6 @@ export const sentScene = (userId, threadId, sceneId) => {
       console.error(error);
     }
   };
-};
 
 // Reducer
 export default (state = [], action) => {

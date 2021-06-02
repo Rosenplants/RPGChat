@@ -1,11 +1,4 @@
-// Action Types
-const SET_ERROR = 'SET_ERROR';
-
-// Action Creator
-export const setError = (errorMsg) => ({
-  type: SET_ERROR,
-  errorMsg,
-});
+import { SET_ERROR } from './actionTypes';
 
 // Reducer
 export default (_state, action) => {

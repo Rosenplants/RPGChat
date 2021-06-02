@@ -1,11 +1,4 @@
-// Action Type
-const GOT_SCENES = 'GOT_SCENES';
-
-// Action Creators
-export const gotScenes = (scenes) => ({
-  type: GOT_SCENES,
-  scenes,
-});
+import { GOT_SCENES } from './actionTypes';
 
 // Reducer
 export default (state = [], action) => {

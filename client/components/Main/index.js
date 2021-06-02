@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MessageContainer from './MessageContainer';
 import ChatBox from './ChatBox';
-import { clearMessages, fetchMessages, newMessage } from '../../store/messages';
+import { fetchMessages } from '../../store/messages';
+import { clearMessages, newMessage } from '../../store/actionCreators';
 import socket from '../../socket';
 
 // Create conditional here to return welcome screen or Messages ?
