@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
+import store from './store';
+import { newMessage } from './store/messages';
 
-// will window.location.origin work locally and deployed ?? who knows ??
 const socket = io(window.location.origin, { autoConnect: false });
 
 // debugging func to log all events received by client
@@ -13,5 +14,12 @@ socket.on('connect_error', (err) => {
     throw new Error('something went wrong, please try again');
   }
 });
+
+socket.on('receive message', ({ message, from }) => {
+  store.dispatch(newMessage(message));
+});
+// socket.on('receive roll', ({ message, from }) => {
+//   recMessage(message);
+// });
 
 export default socket;

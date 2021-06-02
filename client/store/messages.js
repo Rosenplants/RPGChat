@@ -66,7 +66,7 @@ export const sentRoll = (userId, threadId, content) => {
           rolls,
         }
       );
-      socket.emit('send roll', {
+      socket.emit('send message', {
         message,
         to: `room ${threadId}`,
       });
