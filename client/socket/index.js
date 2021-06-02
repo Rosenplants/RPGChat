@@ -1,12 +1,11 @@
 import { io } from 'socket.io-client';
 
-// will window.location.origin work locally and deployed ?? who knows ??
 const socket = io(window.location.origin, { autoConnect: false });
 
 // debugging func to log all events received by client
-socket.onAny((event, ...args) => {
-  // console.log(event, args);
-});
+// socket.onAny((event, ...args) => {
+//   console.log(event, args);
+// });
 
 socket.on('connect_error', (err) => {
   if (err.message === 'invalid username') {
@@ -14,4 +13,7 @@ socket.on('connect_error', (err) => {
   }
 });
 
+// socket listeners which need the store can be found in ./dispatchListeners in a function
+// that function is called after the store is initialized in ../store/index
+// I have created some wild paths to avoid cyclic dependencies
 export default socket;

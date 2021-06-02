@@ -17,13 +17,6 @@ module.exports = (io) => {
       });
     });
 
-    socket.on('send roll', ({ message, to }) => {
-      socket.to(to).emit('receive roll', {
-        message,
-        from: message.user,
-      });
-    });
-
     socket.on('joinRoom', ({ room }) => {
       socket.join(room);
     });

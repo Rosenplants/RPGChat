@@ -1,11 +1,4 @@
-// Action Types
-const SET_TAB = 'SET_TAB';
-
-// Action Creators
-export const setTab = (tabName) => ({
-  type: SET_TAB,
-  tabName,
-});
+import { SET_TAB } from './actionTypes';
 
 // Reducer
 export default (state = '', action) => {

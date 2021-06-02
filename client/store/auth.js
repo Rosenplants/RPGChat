@@ -1,21 +1,15 @@
+/* eslint-disable no-console */
 import history from '../history';
 import socket from '../socket';
-import { setError } from './error';
+import { setError, setAuth, setLogOut } from './actionCreators';
+import { SET_AUTH } from './actionTypes';
 
-/* eslint-disable no-console */
 const TOKEN = 'token';
 
-// Action Types
-const SET_AUTH = 'SET_AUTH';
-
-// Action Creators
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
-
-const setLogOut = () => ({ type: SET_AUTH, auth: {} });
-
 // Thunk Creators
-export const getUser = () => {
-  return async (dispatch, getState, { axios }) => {
+export const getUser =
+  () =>
+  async (dispatch, getState, { axios }) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
@@ -34,10 +28,10 @@ export const getUser = () => {
       console.error(error);
     }
   };
-};
 
-export const logIn = (email, password) => {
-  return async (dispatch, getState, { axios }) => {
+export const logIn =
+  (email, password) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const {
         data: { token },
@@ -48,10 +42,10 @@ export const logIn = (email, password) => {
       dispatch(setError(error.response.data));
     }
   };
-};
 
-export const signUp = (userInfo) => {
-  return async (dispatch, getState, { axios }) => {
+export const signUp =
+  (userInfo) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const {
         data: { token },
@@ -62,19 +56,16 @@ export const signUp = (userInfo) => {
       dispatch(setError(error.response.data));
     }
   };
-};
 
-export const logUserOut = () => {
-  return async (dispatch, getState, { axios }) => {
-    try {
-      window.localStorage.removeItem(TOKEN);
-      socket.removeAllListeners();
-      dispatch(setLogOut());
-      history.push('/login');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+export const logUserOut = () => async (dispatch) => {
+  try {
+    window.localStorage.removeItem(TOKEN);
+    socket.removeAllListeners();
+    dispatch(setLogOut());
+    history.push('/login');
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // Reducer

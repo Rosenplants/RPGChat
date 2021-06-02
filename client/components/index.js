@@ -15,11 +15,6 @@ class Chat extends React.Component {
     getGameInfo(user.id, +match.params.gameId);
   }
 
-  componentWillUnmount() {
-    // is this the right place? we'll find out!
-    socket.off('connect_error');
-  }
-
   render() {
     const threadId = this.props.match.params.threadId || null;
     const { gameId } = this.props.match.params;

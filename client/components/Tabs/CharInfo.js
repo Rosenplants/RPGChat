@@ -39,7 +39,6 @@ class CharInfo extends Component {
   };
 
   render() {
-    console.log(this.state.name);
     const { inEditMode } = this.state;
     const { character } = this.props;
     if (inEditMode)

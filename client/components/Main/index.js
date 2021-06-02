@@ -2,23 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MessageContainer from './MessageContainer';
 import ChatBox from './ChatBox';
-import { clearMessages, fetchMessages, newMessage } from '../../store/messages';
+import { fetchMessages } from '../../store/messages';
+import { clearMessages, newMessage } from '../../store/actionCreators';
 import socket from '../../socket';
 
 // Create conditional here to return welcome screen or Messages ?
 
 class Main extends Component {
-  componentDidMount() {
-    const { recMessage } = this.props;
-
-    socket.on('receive message', ({ message, from }) => {
-      recMessage(message);
-    });
-    socket.on('receive roll', ({ message, from }) => {
-      recMessage(message);
-    });
-  }
-
   componentDidUpdate(prevProps) {
     const { getMessages, threadId } = this.props;
     if (prevProps.threadId !== threadId) {
@@ -38,8 +28,6 @@ class Main extends Component {
 
   componentWillUnmount() {
     const { leaveGame } = this.props;
-    socket.off('receive message');
-    socket.off('receive roll');
     leaveGame();
   }
 

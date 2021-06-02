@@ -1,23 +1,12 @@
+/* eslint-disable no-console */
+import { GOT_INVITES, REMOVE_INVITE } from './actionTypes';
+import { gotInvites, removeInvite } from './actionCreators';
 import { fetchGames } from './games';
 
-// Action Types
-const GOT_INVITES = 'GOT_INVITES';
-const REMOVE_INVITE = 'REMOVE_INVITE';
-
-// Action Creators
-const gotInvites = (invites) => ({
-  type: GOT_INVITES,
-  invites,
-});
-
-const removeInvite = (inviteId) => ({
-  type: REMOVE_INVITE,
-  inviteId,
-});
-
 // Thunk Creators
-export const fetchInvites = (userId) => {
-  return async (dispatch, getState, { axios }) => {
+export const fetchInvites =
+  (userId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const token = window.localStorage.getItem('token');
       const { data: invites } = await axios.get(`api/users/${userId}/invites`, {
@@ -30,10 +19,10 @@ export const fetchInvites = (userId) => {
       console.error(error);
     }
   };
-};
 
-export const acceptInvite = (inviteId, userId) => {
-  return async (dispatch, getState, { axios }) => {
+export const acceptInvite =
+  (inviteId, userId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const res = await axios.put(`/api/invites/${inviteId}`);
       if (res.status === 204) {
@@ -44,10 +33,10 @@ export const acceptInvite = (inviteId, userId) => {
       console.error(error);
     }
   };
-};
 
-export const rejectInvite = (inviteId) => {
-  return async (dispatch, getState, { axios }) => {
+export const rejectInvite =
+  (inviteId) =>
+  async (dispatch, getState, { axios }) => {
     try {
       const res = await axios.delete(`/api/invites/${inviteId}`);
       if (res.status === 204) dispatch(removeInvite(inviteId));
@@ -56,7 +45,6 @@ export const rejectInvite = (inviteId) => {
       console.error(error);
     }
   };
-};
 
 // Reducer
 export default (state = [], action) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setTab } from '../../store/tabOpen';
+import { setTab } from '../../store/actionCreators';
 
 class TabList extends Component {
   handleClick = (evt) => {

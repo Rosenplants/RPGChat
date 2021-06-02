@@ -1,23 +1,4 @@
-// Action Types
-const GOT_THREADS = 'GOT_THREADS';
-
-// Action Creators
-export const gotThreads = (threads) => ({
-  type: GOT_THREADS,
-  threads,
-});
-
-// // Thunk Creators
-// export const fetchThreads = (gameId) => {
-//   return async (dispatch, getState, { axios }) => {
-//     try {
-//       const { data: threads } = await axios.get(`/api/games/${gameId}`);
-//       dispatch(gotThreads(threads));
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-// };
+import { GOT_THREADS } from './actionTypes';
 
 // Reducer
 export default (state = [], action) => {

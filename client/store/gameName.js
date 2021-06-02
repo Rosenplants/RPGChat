@@ -1,11 +1,4 @@
-// Action Types
-const GOT_NAME = 'GOT_NAME';
-
-// Action Creator
-export const gotName = (name) => ({
-  type: GOT_NAME,
-  name,
-});
+import { GOT_NAME } from './actionTypes';
 
 // Reducer
 export default (state = '', action) => {

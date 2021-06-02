@@ -42,7 +42,6 @@ class GameSelection extends Component {
         {invites.length ? (
           <>
             {invites.map((invite) => {
-              console.log({ invite });
               return (
                 <div className="flex-row invitation" key={invite.id}>
                   <p>
